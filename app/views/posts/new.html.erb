@@ -1,11 +1,12 @@
 <div class="main posts-new">
   <div class="container">
     <h1 class="form-heading">投稿する</h1>
-    <%= form_with(model: @post) do |form| %>
-  <div class="blog_content">
+      <%= form_with(model: @post, local: true ,url: confirm_posts_path ) do |form| %>
+  <div class="post_content">
     <%= form.label :content %>
     <%= form.text_area :content %>
   </div>
+
   <%= form.submit %>
 <% end %>
   </div>

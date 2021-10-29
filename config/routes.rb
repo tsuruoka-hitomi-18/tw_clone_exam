@@ -6,6 +6,11 @@ Rails.application.routes.draw do
   # get "posts/:id/edit", to: "posts#edit"
   # post "posts/:id/update", to: "posts#update"
   # post "posts/:id/destroy", to: "posts#destroy"
-  resources :posts
+  #post "posts/confirm", to: "posts#confirm"
+  resources :posts do
+    collection do
+      post :confirm
+    end
+  end
   get "/", to: "home#top"
  end

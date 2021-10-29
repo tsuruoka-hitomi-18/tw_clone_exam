@@ -10,18 +10,22 @@ class PostsController < ApplicationController
   end
   def create
     @post = Post.new(post_params)
-    if @post.save 
-      flash[:notice] = "投稿を作成しました"
-      redirect_to posts_path
+    if params[:back]
+      render :new
     else
-      render("posts/new")
+      if @post.save 
+        flash[:notice] = "投稿を作成しました"
+        redirect_to posts_path
+      else
+        render("posts/new")
+      end
     end
   end
   def edit
     @post = Post.find_by(id: params[:id])
   end
   def update
-    @post = Post.find_by(id: params[:id])
+    @post = Post.new(post_params)
     if @post.save
       flash[:notice] = "投稿を編集しました"
       redirect_to posts_path
@@ -34,6 +38,10 @@ class PostsController < ApplicationController
     @post.destroy
     flash[:notice] = "投稿を削除しました"
     redirect_to("/posts/index")
+  end
+  def confirm
+    @post = Post.new(post_params)
+    render :new if @post.invalid?
   end
   private
   def post_params
