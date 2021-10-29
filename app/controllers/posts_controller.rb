@@ -17,7 +17,7 @@ class PostsController < ApplicationController
         flash[:notice] = "投稿を作成しました"
         redirect_to posts_path
       else
-        render("posts/new")
+        render :new
       end
     end
   end
@@ -30,14 +30,14 @@ class PostsController < ApplicationController
       flash[:notice] = "投稿を編集しました"
       redirect_to posts_path
     else
-      render("posts/edit")
+      render :edit
     end
   end
   def destroy
     @post = Post.find_by(id: params[:id])
     @post.destroy
     flash[:notice] = "投稿を削除しました"
-    redirect_to("/posts/index")
+    redirect_to posts_path
   end
   def confirm
     @post = Post.new(post_params)

@@ -1,7 +1,13 @@
-<h3>以下の内容で、送信する。</h3>
+<div class="main posts-confirm">
+    <div class="container">
+        <h3 class="form-heading">以下の内容で、送信</h3>
 <%= form_with(model: @post, url: posts_path, local: true) do |form| %>
     <%= form.hidden_field :content %>
-    <p>本文:<%= @post.content %></p>
+    <div class="post_content">
+    <%= form.label :content %>
+    <%= form.text_area :content %>
     <%= form.submit  "登録する" %>
     <%= form.submit "戻る", name: 'back' %>
 <% end %>
+    </div>
+</div>
