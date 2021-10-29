@@ -9,10 +9,10 @@ class PostsController < ApplicationController
     @post = Post.new
   end
   def create
-    @post = Post.new(content: params[:content])
+    @post = Post.new(post_params)
     if @post.save 
       flash[:notice] = "投稿を作成しました"
-      redirect_to("/posts/index")
+      redirect_to posts_path
     else
       render("posts/new")
     end
@@ -22,10 +22,9 @@ class PostsController < ApplicationController
   end
   def update
     @post = Post.find_by(id: params[:id])
-    @post.content = params[:content]
     if @post.save
       flash[:notice] = "投稿を編集しました"
-      redirect_to("/posts/index")
+      redirect_to posts_path
     else
       render("posts/edit")
     end
@@ -35,5 +34,9 @@ class PostsController < ApplicationController
     @post.destroy
     flash[:notice] = "投稿を削除しました"
     redirect_to("/posts/index")
+  end
+  private
+  def post_params
+    params.require(:post).permit(:content)
   end
 end
